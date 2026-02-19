@@ -1,10 +1,12 @@
 class AppError(Exception):
     """Base class for all application-specific exceptions."""
+
     pass
 
 
 class UserError(AppError):
     """Base class for user-related exceptions."""
+
     pass
 
 

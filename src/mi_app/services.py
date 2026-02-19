@@ -15,7 +15,7 @@ class UserService:
         # check for required fields
         if user.id <= 0:
             raise InvalidUserDataError("User id must be a positive integer")
-        
+
         if not user.name.strip():
             raise InvalidUserDataError("User name cannot be empty")
 

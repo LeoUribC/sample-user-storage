@@ -13,14 +13,20 @@ class UserService:
 
     def create_user(self, user: User) -> None:
         # check for required fields
-        if not user.name or not user.email:
-            raise InvalidUserDataError("Name and email are required")
+        if user.id <= 0:
+            raise InvalidUserDataError("User id must be a positive integer")
+        
+        if not user.name.strip():
+            raise InvalidUserDataError("User name cannot be empty")
+
+        if "@" not in user.email:
+            raise InvalidUserDataError("Invalid email address")
 
         users = self.storage.load()
 
         # check for duplicate id
         if any(u.id == user.id for u in users):
-            raise UserAlreadyExistsError(f"User with id {user.id} already exists")
+            raise UserAlreadyExistsError(user.id)
 
         # finally add the user if all checks pass
         users.append(user)

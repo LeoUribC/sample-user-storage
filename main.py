@@ -3,6 +3,8 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from src.mi_app.exceptions import AppError
+
 from src.mi_app.models import User
 from src.mi_app.services import UserService
 from src.mi_app.storage import JSONStorage
@@ -16,9 +18,13 @@ service = UserService(storage)
 
 @app.command()
 def create(id: int, name: str, email: str):
-    user = User(id=id, name=name, email=email)
-    service.create_user(user)
-    typer.echo("User created successfully")
+    try:
+        user = User(id=id, name=name, email=email)
+        service.create_user(user)
+        typer.echo("User created successfully")
+    except AppError as e:
+        typer.secho(str(e), fg=typer.colors.RED)
+        raise typer.Exit(code=1)
 
 
 @app.command()

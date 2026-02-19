@@ -1,4 +1,4 @@
-name: Ptython Tests and Linting
+name: Python Tests and Linting
 on: [push, pull_request]
 
 jobs:

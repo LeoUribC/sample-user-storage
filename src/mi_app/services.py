@@ -47,3 +47,4 @@ class UserService:
             raise UserNotFoundError(f"User {user_id} not found")
 
         self.storage.save(filtered)
+

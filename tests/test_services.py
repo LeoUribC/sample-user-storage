@@ -29,6 +29,7 @@ def test_create_user_duplicate_id():
     """
 
     mock_storage = MagicMock()
+
     mock_storage.load.return_value = [
         User(id=1, name="Existing", email="existing@test.com")
     ]

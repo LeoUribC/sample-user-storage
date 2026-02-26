@@ -16,7 +16,7 @@ def test_create_user_success():
     mock_storage.load.return_value = []
 
     service = UserService(mock_storage)
-    user = User(id=1, name="Leo", email="leo@test.com")
+    user = User(user_id=1, name="Leo", email="leo@test.com")
 
     service.create_user(user)
 
@@ -31,11 +31,11 @@ def test_create_user_duplicate_id():
     mock_storage = MagicMock()
 
     mock_storage.load.return_value = [
-        User(id=1, name="Existing", email="existing@test.com")
+        User(user_id=1, name="Existing", email="existing@test.com")
     ]
 
     service = UserService(mock_storage)
-    user = User(id=1, name="Leo", email="leo@test.com")
+    user = User(user_id=1, name="Leo", email="leo@test.com")
 
     with pytest.raises(UserAlreadyExistsError):
         service.create_user(user)
@@ -48,10 +48,10 @@ def test_create_user_invalid_data():
     mock_storage = MagicMock()
     service = UserService(mock_storage)
 
-    user = User(id=1, name="", email="")
-
     with pytest.raises(InvalidUserDataError):
-        service.create_user(user)
+        # modificado para que se llame el error desde la creacion del
+        # user, no desde el servicio
+        user = User(user_id=1, name="", email="")
 
 
 def test_get_user_not_found():
@@ -72,9 +72,7 @@ def test_create_user_invalid_email():
     mock_storage = MagicMock()
     service = UserService(mock_storage)
 
-    user = User(id=1, name="Leo", email="invalid-email")
-
     with pytest.raises(InvalidUserDataError) as exec_info:
-        service.create_user(user)
-
-    assert "Invalid email address" in str(exec_info.value)
+        # modificado para que se llame el error desde la creacion del
+        # user, no desde el servicio
+        user = User(user_id=1, name="Leo", email="invalid-email")

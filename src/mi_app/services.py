@@ -1,10 +1,6 @@
 from .models import User
 from .storage import Storage
-from .exceptions import (
-    UserNotFoundError,
-    UserAlreadyExistsError,
-    InvalidUserDataError,
-)
+from .exceptions import UserNotFoundError, UserAlreadyExistsError
 
 
 class UserService:
@@ -12,15 +8,6 @@ class UserService:
         self.storage = storage
 
     def create_user(self, user: User) -> None:
-        # check for required fields
-        if user.id <= 0:
-            raise InvalidUserDataError("User id must be a positive integer")
-
-        if not user.name.strip():
-            raise InvalidUserDataError("User name cannot be empty")
-
-        if "@" not in user.email:
-            raise InvalidUserDataError("Invalid email address")
 
         users = self.storage.load()
 

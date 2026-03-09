@@ -15,18 +15,27 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
-pluggins:
+plugins:
   - search:
   - mkdocstrings:
-    handlers:
-      python:
-        paths: ["src"]
+      handlers:
+        python:
+          paths: ["src"]
 
 nav:
   - Inicio: index.md
-  - Referencias: api.md
+  - Guía de usuario: guia_usuario.md
+  - Referencia técnica:
+    - API de python: referencia/api.md
 
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed
+  - pymdownx.highlight
+  - pymdownx.inlinehilite

@@ -4,10 +4,26 @@ from .exceptions import UserNotFoundError, UserAlreadyExistsError, InvalidUserDa
 
 
 class UserService:
+    """
+    Service responsible for managing user-related operations.
+
+    This class implements the business logic for user management,
+    including creation, deletion and retrieval.
+    """
     def __init__(self, storage: Storage):
         self.storage = storage
 
     def create_user(self, user: User) -> None:
+        """
+        Create a new user in the system.
+
+        Args:
+            user: User instance containing the data to be stored.
+
+        Raises:
+            UserAlreadyExistsError: If a user with the same ID already exists.
+            InvalidUserDataError: If the user data is invalid.
+        """
         self._validate_user(user)
         users = self.storage.load()
         self._ensure_user_is_unique(user, users)
@@ -21,6 +37,15 @@ class UserService:
         raise UserNotFoundError(f"User {user_id} not found")
 
     def delete_user(self, user_id: int) -> None:
+        """
+        Remove a user from the system.
+
+        Args:
+            user_id: Unique identifier of the user.
+
+        Raises:
+            UserNotFoundError: If the user does not exist.
+        """
         users = self.storage.load()
         filtered = [u for u in users if u.id != user_id]
 

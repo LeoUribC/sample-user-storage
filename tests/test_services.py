@@ -45,13 +45,12 @@ def test_create_user_duplicate_id():
 
 def test_create_user_invalid_data():
     """Verifica que se lance un error con datos invalidos de user"""
-    mock_storage = MagicMock()
-    service = UserService(mock_storage)
+    #mock_storage = MagicMock()
 
     with pytest.raises(InvalidUserDataError):
         # modificado para que se llame el error desde la creacion del
         # user, no desde el servicio
-        user = User(user_id=1, name="", email="")
+        User(user_id=1, name="", email="")
 
 
 def test_get_user_not_found():
@@ -69,10 +68,8 @@ def test_get_user_not_found():
 
 def test_create_user_invalid_email():
     """Verifica que se lance un error con un email invalido"""
-    mock_storage = MagicMock()
-    service = UserService(mock_storage)
+    # mock_storage = MagicMock()
+    # service = UserService(mock_storage)
 
-    with pytest.raises(InvalidUserDataError) as exec_info:
-        # modificado para que se llame el error desde la creacion del
-        # user, no desde el servicio
-        user = User(user_id=1, name="Leo", email="invalid-email")
+    with pytest.raises(InvalidUserDataError):
+        User(user_id=1, name="Leo", email="invalid-email")

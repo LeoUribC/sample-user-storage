@@ -1,4 +1,4 @@
-from .exceptions import InvalidUserDataError, UserAlreadyExistsError, UserNotFoundError
+from .exceptions import InvalidUserDataError
 
 class User:
     def __init__(self, user_id: int, name: str, email: str):
